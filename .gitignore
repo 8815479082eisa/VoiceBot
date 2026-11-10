@@ -1,0 +1,31 @@
+# Zugangsdaten
+.env
+.env.tmp
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Lokale Laufzeitdaten
+*.db
+*.sqlite
+*.log
+
+# Messwerte und Protokoll aus lokalen Testläufen
+data/laufzeit/
+
+# Gesprächstexte können personenbezogene Angaben enthalten
+data/gespraeche/
+
+# Originaldokumente werden nicht veröffentlicht
+data/wissen/quellen/
+data/wissen/aufbereitet/
+
+# Audioaufnahmen
+*.wav
+*.mp3
+
+# Lokale Testläufe
+.pytest_cache/

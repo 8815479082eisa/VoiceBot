@@ -1,0 +1,359 @@
+@font-face { font-family: "Barlow"; src: url("/fonts/barlow-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Barlow"; src: url("/fonts/barlow-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Barlow"; src: url("/fonts/barlow-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Barlow Semi Condensed"; src: url("/fonts/barlow-semi-condensed-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Barlow Semi Condensed"; src: url("/fonts/barlow-semi-condensed-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  color-scheme: light;
+  --tinte: #14231f;
+  --grauton: #4f5f5a;
+  --papier: #edf1ea;
+  --flaeche: #fafbf7;
+  --linie: #c6d0c7;
+  --trasse: #0f4a41;
+  --trasse-tief: #0c332d;
+  --trasse-hell: #dce8e0;
+  --signal: #f0ae12;
+  --signal-hell: #fdf2d3;
+  --stoerung: #a92f1b;
+  --stoerung-hell: #f9e5e0;
+  --kopfschrift: "Barlow Semi Condensed", "Bahnschrift", "Segoe UI", sans-serif;
+  --textschrift: "Barlow", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 224px minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--papier);
+  color: var(--tinte);
+  font: 400 16px/1.5 var(--textschrift);
+  font-variant-numeric: tabular-nums;
+}
+h1, h2, h3 { font-family: var(--kopfschrift); font-weight: 600; line-height: 1.15; margin: 0; }
+h1 { font-size: 34px; letter-spacing: -.005em; }
+h2 { font-size: 21px; }
+h3 { font-size: 18px; }
+p { margin: 0; }
+a { color: var(--trasse); text-underline-offset: 2px; }
+code {
+  font: inherit;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; border-radius: 2px; }
+main:focus { outline: none; }
+[hidden] { display: none !important; }
+
+.sprung { position: absolute; left: -999px; top: 8px; background: var(--flaeche); padding: 8px 12px; z-index: 5; }
+.sprung:focus { left: 8px; }
+
+/* Navigation */
+.leiste {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0 20px;
+  background: var(--trasse-tief);
+  color: #e7efe9;
+}
+.marke { padding: 0 22px 24px; }
+.marke strong { display: block; font: 600 25px/1.1 var(--kopfschrift); }
+.marke span { display: block; margin-top: 4px; font-size: 13px; color: #b6c8bf; }
+.leiste ul { list-style: none; margin: 0; padding: 0; }
+.leiste li a {
+  display: block;
+  padding: 9px 22px 9px 18px;
+  border-left: 4px solid transparent;
+  color: inherit;
+  font-weight: 500;
+  text-decoration: none;
+}
+.leiste li a:hover { background: rgba(255, 255, 255, .07); }
+.leiste li a[aria-current="page"] { border-left-color: var(--signal); background: rgba(255, 255, 255, .1); color: #fff; }
+.leitungsstand { margin-top: auto; padding: 12px 22px 0; font-size: 13px; line-height: 1.35; color: #c8d7cf; }
+.leitungsstand::before {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 7px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+}
+.leitungsstand.bereit { color: #fff; }
+.leitungsstand.bereit::before { background: #4cc79d; border-color: #4cc79d; }
+
+/* Seitengerüst */
+main { padding: 34px clamp(16px, 4vw, 52px) 64px; }
+#ansicht, #testanruf-ansicht { max-width: 1120px; }
+.kopf { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 26px; }
+.einleitung { margin-top: 7px; max-width: 66ch; color: var(--grauton); }
+.hinweis { color: var(--grauton); font-size: 14px; max-width: 72ch; }
+.abschnitt { margin-top: 38px; }
+.abschnitt > h2 { margin-bottom: 12px; }
+.zweispaltig { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
+.zweispaltig h2 { margin-bottom: 12px; }
+.stoerung { color: var(--stoerung); }
+
+/* Bedienelemente */
+.knopf {
+  display: inline-block;
+  padding: 9px 16px;
+  border: 1.5px solid var(--trasse);
+  border-radius: 4px;
+  background: var(--trasse);
+  color: #fff;
+  font: 500 15px/1.35 var(--textschrift);
+  text-decoration: none;
+  cursor: pointer;
+}
+.knopf:hover { background: var(--trasse-tief); border-color: var(--trasse-tief); }
+.knopf.zweitrangig { background: transparent; color: var(--trasse); }
+.knopf.zweitrangig:hover { background: var(--trasse-hell); }
+.knopf:disabled { opacity: .5; cursor: default; }
+.knopf-reihe { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+label.feld { display: grid; gap: 4px; font-size: 14px; font-weight: 500; }
+label.feld small { font-weight: 400; color: var(--grauton); }
+input, select, textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #8f9d95;
+  border-radius: 3px;
+  background: #fff;
+  color: var(--tinte);
+  font: 400 15px/1.4 var(--textschrift);
+}
+textarea { min-height: 84px; resize: vertical; }
+.felder { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 14px; }
+.formular { display: grid; gap: 14px; max-width: 640px; }
+.formular > .knopf { justify-self: start; }
+.meldung { min-height: 1.5em; font-size: 14px; font-weight: 500; color: var(--trasse); }
+.meldung.fehler { color: var(--stoerung); }
+.meldung.bestaetigt { margin-top: 8px; }
+
+.warnung { padding: 10px 14px; border-left: 4px solid var(--stoerung); background: var(--stoerung-hell); font-size: 14px; max-width: 72ch; }
+.kopierfeld {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 8px 8px 12px;
+  border: 1px solid var(--linie);
+  background: #fff;
+  border-radius: 3px;
+}
+.kopierfeld code { min-width: 0; }
+.kopierfeld button { flex: none; padding: 4px 10px; font-size: 13px; }
+
+/* Leitungsplan */
+.plan-flaeche { padding: 26px 26px 22px; background: var(--flaeche); border: 1px solid var(--linie); border-radius: 6px; }
+.plan-kopf { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 18px; }
+.plan-kopf h1 { max-width: 22ch; }
+.plan { list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 34px 0 0; padding: 0; }
+.station { position: relative; padding-top: 34px; min-width: 0; }
+.station::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 11px;
+  right: -11px;
+  border-top: 3px dashed #93a39a;
+}
+.station:last-child::after { display: none; }
+.station.verbunden::after { border-top: 4px solid var(--trasse); top: 9px; }
+.station-punkt {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #7f9087;
+  border-radius: 50%;
+  background: var(--flaeche);
+}
+.station.fertig .station-punkt { background: var(--trasse); border-color: var(--trasse); }
+.station.naechste .station-punkt { border-color: var(--signal); background: var(--signal-hell); animation: anklopfen 1.1s ease-out 2; }
+@keyframes anklopfen {
+  0% { box-shadow: 0 0 0 0 rgba(240, 174, 18, .75); }
+  100% { box-shadow: 0 0 0 14px rgba(240, 174, 18, 0); }
+}
+.station a, .station > span.station-text { display: block; padding-right: 12px; color: inherit; text-decoration: none; }
+.station a:hover strong { text-decoration: underline; }
+.station strong { display: block; font: 600 18px/1.2 var(--kopfschrift); }
+.station small { display: block; margin-top: 3px; color: var(--grauton); font-size: 13px; line-height: 1.3; overflow-wrap: anywhere; }
+
+/* Kennzahlen */
+.kennzahlen { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 0; border-bottom: 1px solid var(--linie); }
+.kennzahlen > div { padding: 14px 16px 16px 0; }
+.kennzahlen > div + div { padding-left: 16px; border-left: 1px solid var(--linie); }
+.kennzahlen dt { font-size: 14px; color: var(--grauton); }
+.kennzahlen dd { margin: 2px 0 0; font: 500 32px/1.1 var(--kopfschrift); }
+.kennzahlen small { display: block; margin-top: 3px; font: 400 13px/1.3 var(--textschrift); color: var(--grauton); }
+
+/* Listen */
+.zeilenliste { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linie); }
+.zeilenliste li { border-bottom: 1px solid var(--linie); }
+.zeilenliste a, .zeilenliste button.eintrag {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+  padding: 9px 4px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.zeilenliste a:hover, .zeilenliste button.eintrag:hover { background: var(--trasse-hell); }
+.zeilenliste button.eintrag[aria-current="true"] { background: var(--trasse-hell); box-shadow: inset 4px 0 var(--trasse); padding-left: 12px; }
+.zeilenliste .titel { font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
+.zeilenliste .titel small { display: block; font-weight: 400; color: var(--grauton); font-size: 13px; }
+.zeilenliste .stand { flex: none; font-size: 13px; color: var(--grauton); text-align: right; }
+.leer { padding: 14px 0; color: var(--grauton); max-width: 60ch; }
+
+/* Einrichtung als Strecke */
+.strecke { list-style: none; margin: 0; padding: 0; max-width: 800px; }
+.halt { position: relative; padding: 0 0 8px 46px; }
+.halt::before { content: ""; position: absolute; left: 14px; top: 28px; bottom: -6px; border-left: 3px dashed #93a39a; }
+.halt:last-child::before { display: none; }
+.halt.fertig::before { border-left: 4px solid var(--trasse); }
+.halt-nummer {
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border: 3px solid #7f9087;
+  border-radius: 50%;
+  background: var(--papier);
+  font: 600 15px/1 var(--kopfschrift);
+}
+.halt.fertig .halt-nummer { background: var(--trasse); border-color: var(--trasse); color: #fff; }
+.halt.naechste .halt-nummer { background: var(--signal-hell); border-color: var(--signal); }
+.halt-kopf {
+  font: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+  width: 100%;
+  padding: 10px 6px 10px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.halt-kopf h2 { font-size: 20px; }
+.halt-kopf:hover h2 { text-decoration: underline; }
+.halt-stand { flex: none; font-size: 13px; color: var(--grauton); max-width: 46%; text-align: right; overflow-wrap: anywhere; }
+.halt-inhalt { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; padding: 6px 0 26px; }
+.halt-inhalt div[style*="grid"], .formular { grid-template-columns: minmax(0, 1fr); }
+.halt-inhalt .anleitung { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 72ch; }
+.halt-inhalt h3 { margin-top: 6px; }
+.nummernwahl { display: grid; gap: 6px; border: 0; padding: 0; margin: 0; }
+.nummernwahl label { display: flex; gap: 10px; align-items: center; padding: 8px 10px; border: 1px solid var(--linie); background: #fff; border-radius: 3px; cursor: pointer; }
+.nummernwahl input { width: auto; }
+.reiter { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--linie); }
+.reiter button { padding: 7px 12px; border: 0; border-bottom: 3px solid transparent; background: none; color: var(--grauton); font: 500 15px var(--textschrift); cursor: pointer; }
+.reiter button[aria-selected="true"] { color: var(--tinte); border-bottom-color: var(--trasse); }
+table.codes, table.tabelle { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.codes th, table.codes td, table.tabelle th, table.tabelle td { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--linie); text-align: left; vertical-align: top; }
+table.codes th, table.tabelle th { font-weight: 500; color: var(--grauton); white-space: nowrap; }
+.tabelle-rolle { overflow-x: auto; }
+
+/* Wege für die Rufnummer */
+.empfehlung { padding: 11px 14px; border-left: 4px solid var(--signal); background: var(--signal-hell); max-width: 72ch; }
+.wegliste { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linie); }
+.weg { border-bottom: 1px solid var(--linie); }
+.weg.offen { background: var(--flaeche); }
+.weg-kopf { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; width: 100%; padding: 11px 10px; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.weg-kopf:hover { background: var(--trasse-hell); }
+.weg.offen .weg-kopf { box-shadow: inset 4px 0 var(--trasse); padding-left: 16px; }
+.weg-name { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.weg-name strong { font: 600 18px/1.25 var(--kopfschrift); }
+.weg-kurz { max-width: 72ch; }
+.weg-daten { font-size: 13px; color: var(--grauton); }
+.weg-inhalt { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 8px 16px 22px; }
+.weg-inhalt h4 { margin: 10px 0 0; font: 600 16px/1.2 var(--kopfschrift); }
+.weg-inhalt .anleitung { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 72ch; }
+.weg-inhalt .anleitung .kopierfeld { margin-top: 6px; }
+
+/* Testanruf */
+.anruf-steuerung { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
+#status { color: var(--grauton); }
+.anruf-raster { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 28px; align-items: start; }
+.gespraech-flaeche { padding: 16px; background: var(--flaeche); border: 1px solid var(--linie); border-radius: 6px; }
+#transkript { min-height: 420px; max-height: 64vh; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+#transkript:empty::before { content: "Das Gespräch erscheint hier, sobald es läuft."; color: var(--grauton); }
+.zeile { max-width: 86%; padding: 7px 11px; border-radius: 3px 10px 10px 10px; }
+.zeile.bot { align-self: flex-start; background: var(--trasse-hell); }
+.zeile.anrufer { align-self: flex-end; background: #fff; border: 1px solid var(--linie); border-radius: 10px 3px 10px 10px; }
+.anruf-daten { display: grid; gap: 10px; align-content: start; }
+.anruf-daten h2 { font-size: 18px; margin-top: 10px; }
+.anruf-daten h2:first-child { margin-top: 0; }
+.daten { display: grid; grid-template-columns: auto 1fr; gap: 3px 14px; margin: 0; font-size: 14px; }
+.daten dt { color: var(--grauton); }
+.daten dd { margin: 0; text-align: right; overflow-wrap: anywhere; }
+.daten.links dd { text-align: left; }
+.ablauf { margin: 0; padding-left: 18px; font-size: 13px; overflow-wrap: anywhere; }
+
+/* Geteilte Ansichten */
+.geteilt { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 32px; align-items: start; }
+.geteilt .spalte-liste { max-height: 76vh; overflow-y: auto; }
+.detail { display: grid; gap: 28px; min-width: 0; }
+.detail section > h2 { margin-bottom: 10px; }
+.lesetext { display: grid; gap: 7px; max-height: 420px; overflow-y: auto; padding: 14px; background: var(--flaeche); border: 1px solid var(--linie); border-radius: 4px; font-size: 15px; }
+.lesetext b { font-weight: 600; }
+.stempel { display: inline-block; padding: 1px 8px; border: 1px solid currentColor; border-radius: 2px; font-size: 13px; font-weight: 500; }
+.stempel.gut { color: var(--trasse); }
+.stempel.offen { color: #7a5600; background: var(--signal-hell); }
+.stempel.schlecht { color: var(--stoerung); }
+
+/* Agent */
+.prompt { max-height: 420px; overflow: auto; padding: 14px; background: var(--flaeche); border: 1px solid var(--linie); border-radius: 4px; font: 400 14px/1.55 var(--textschrift); white-space: pre-wrap; margin: 0; }
+
+/* Protokoll */
+.zaehler { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--grauton); }
+.zaehler b { color: var(--tinte); font-weight: 600; }
+td.details { min-width: 240px; font-size: 13px; overflow-wrap: anywhere; color: var(--grauton); }
+
+@media (max-width: 960px) {
+  body { display: block; }
+  .leiste { position: static; height: auto; padding: 14px 0 0; }
+  .marke { padding: 0 16px 8px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .leiste ul { display: flex; overflow-x: auto; }
+  .leiste li a { white-space: nowrap; padding: 9px 13px; border-left: 0; border-bottom: 3px solid transparent; }
+  .leiste li a[aria-current="page"] { border-bottom-color: var(--signal); }
+  .leitungsstand { padding: 8px 16px 10px; }
+  main { padding: 24px 16px 48px; }
+  h1 { font-size: 29px; }
+  .plan { grid-template-columns: 1fr; margin-top: 24px; }
+  .station { padding: 0 0 18px 38px; }
+  .station::after { top: 11px; bottom: -11px; left: 10px; right: auto; border-top: 0; border-left: 3px dashed #93a39a; }
+  .station.verbunden::after { top: 11px; border-top: 0; border-left: 4px solid var(--trasse); }
+  .kennzahlen { grid-template-columns: repeat(2, minmax(0, 1fr)); border-bottom: 0; }
+  .kennzahlen > div, .kennzahlen > div + div { padding: 10px 0; border-left: 0; border-bottom: 1px solid var(--linie); }
+  .zweispaltig, .geteilt, .anruf-raster { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .geteilt .spalte-liste { max-height: 260px; }
+  .halt-stand { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .station.naechste .station-punkt { animation: none; }
+}

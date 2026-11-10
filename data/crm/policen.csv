@@ -1,0 +1,7 @@
+policennummer,kunde_id,kennzeichen,produkt,status,beginn,ende
+KFZ-100101,K-001,MS-TE 123,Kfz-Teilkasko,aktiv,2026-01-01,2026-12-31
+KFZ-100102,K-002,HH-JB 204,Kfz-Vollkasko,aktiv,2026-01-01,2026-12-31
+KFZ-100103,K-003,B-LP 8821,Kfz-Haftpflicht,aktiv,2026-03-01,2027-02-28
+KFZ-100104,K-004,K-TT 77,Kfz-Teilkasko,aktiv,2026-06-01,2027-05-31
+KFZ-100105,K-005,M-SD 4512,Kfz-Vollkasko,beendet,2024-01-01,2025-12-31
+KFZ-100106,K-006,GÖ-EM 31,Kfz-Haftpflicht,aktiv,2026-01-01,2026-12-31

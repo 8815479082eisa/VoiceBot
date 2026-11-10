@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voicebot Konsole</title>
+    <link rel="stylesheet" href="/konsole.css" />
+  </head>
+  <body>
+    <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+    <nav class="leiste" aria-label="Hauptnavigation">
+      <div class="marke">
+        <strong>Voicebot</strong>
+        <span>Musterschutz Versicherung, fiktiv</span>
+      </div>
+      <ul id="navigation">
+        <li><a href="#/uebersicht" data-ansicht="uebersicht">Übersicht</a></li>
+        <li><a href="#/einrichtung" data-ansicht="einrichtung">Einrichtung</a></li>
+        <li><a href="#/agent" data-ansicht="agent">Agent</a></li>
+        <li><a href="#/testanruf" data-ansicht="testanruf">Testanruf</a></li>
+        <li><a href="#/sachbearbeitung" data-ansicht="sachbearbeitung">Sachbearbeitung</a></li>
+        <li><a href="#/gespraeche" data-ansicht="gespraeche">Gespräche</a></li>
+        <li><a href="#/wissen" data-ansicht="wissen">Wissen</a></li>
+        <li><a href="#/protokoll" data-ansicht="protokoll">Protokoll</a></li>
+      </ul>
+      <p class="leitungsstand" id="leitungsstand" role="status"></p>
+    </nav>
+
+    <main id="inhalt" tabindex="-1">
+      <div id="ansicht"></div>
+
+      <!-- Der Testanruf bleibt im Dokument, damit ein Gespräch beim Wechsel der Ansicht weiterläuft. -->
+      <section id="testanruf-ansicht" hidden>
+        <header class="kopf">
+          <div>
+            <h1>Testanruf im Browser</h1>
+            <p class="einleitung">Sprechen Sie mit dem Agenten über Ihr Mikrofon. Verwenden Sie nur fiktive Testdaten, zum Beispiel die Police von Erika Mustermann.</p>
+          </div>
+        </header>
+        <div class="anruf-steuerung">
+          <button id="start" type="button" class="knopf">Gespräch starten</button>
+          <button id="stopp" type="button" class="knopf zweitrangig" disabled>Gespräch beenden</button>
+          <span id="status" role="status">Bereit</span>
+          <span id="fehler" class="stoerung" role="alert"></span>
+        </div>
+        <div class="anruf-raster">
+          <section class="gespraech-flaeche" aria-label="Transkript">
+            <div id="transkript" aria-live="polite"></div>
+          </section>
+          <aside class="anruf-daten">
+            <h2>Sitzung</h2>
+            <dl class="daten">
+              <dt>Modell</dt><dd id="modell">–</dd>
+              <dt>Schritt</dt><dd id="phase">–</dd>
+              <dt>Schadennummer</dt><dd id="nummer">–</dd>
+            </dl>
+            <h2>Antwortzeit</h2>
+            <dl class="daten">
+              <dt>Letzte</dt><dd id="letzte">–</dd>
+              <dt>Median</dt><dd id="median">–</dd>
+              <dt>Messungen</dt><dd id="anzahl">0</dd>
+              <dt>Letzte Ansage</dt><dd id="bestaetigung">–</dd>
+            </dl>
+            <h2>Ablauf</h2>
+            <ul id="ereignisse" class="ablauf"></ul>
+          </aside>
+        </div>
+        <audio id="audio" autoplay></audio>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+    <script src="/konsole.js"></script>
+  </body>
+</html>
